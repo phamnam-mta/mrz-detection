@@ -19,7 +19,7 @@ async function exec() {
     const result = {};
     try {
       await getMrz(await Image.load(pathname), {
-        debug: true,
+        debug: argv.debug ? true : false,
         out: result
       });
     } catch (e) {
@@ -27,24 +27,22 @@ async function exec() {
     }
     console.timeEnd(pathname);
     await saveImages(
-      pathname,
+      argv.file,
       result,
-      path.join(path.dirname(pathname), 'out')
+      argv.out
     );
-    await saveSingleReport(
-      pathname,
-      result,
-      path.join(path.dirname(pathname), 'out')
-    );
+    // await saveSingleReport(
+    //   pathname,
+    //   result,
+    //   path.join(path.dirname(pathname), 'out')
+    // );
   } else if (argv.dir) {
     const dirname = path.resolve(argv.dir);
     const files = (await fs.readdir(dirname)).filter((f) => {
       f = f.toLowerCase();
       return f.endsWith('jpg') || f.endsWith('png') || f.endsWith('jpeg');
     });
-    const out = path.join(dirname, 'out');
-    const toSave = [];
-    await fs.emptyDir(out);
+    // const toSave = [];
     for (let file of files) {
       console.log(`process ${file}`);
       const imagePath = path.join(dirname, file);
@@ -52,17 +50,17 @@ async function exec() {
       const result = {};
       try {
         getMrz(await Image.load(imagePath), {
-          debug: true,
+          debug: argv.debug ? true : false,
           out: result
         });
       } catch (e) {
         console.error(e);
       }
       console.timeEnd(imagePath);
-      await saveImages(imagePath, result, out);
-      toSave.push([imagePath, result]);
+      await saveImages(imagePath, result, argv.out);
+      // toSave.push([imagePath, result]);
     }
-    await saveReports(toSave, out);
+    // await saveReports(toSave, out);
   }
 }
 
