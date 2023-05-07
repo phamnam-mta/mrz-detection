@@ -64,6 +64,7 @@
     "mrz": "^3.1.0",
     "ocr-tools": "^0.2.0",
     "radians-degrees": "^1.0.0",
+    "request-promise": "^4.2.6",
     "transformation-matrix": "^1.12.0"
   }
 }
