@@ -23,10 +23,6 @@
 
 var _parse = require('mrz').parse;
 
-module.exports = {
-  parse: parse
-};
-
 function parse(mrz, modified) {
   var _mrz = mrz.slice(0);
   var result = _parse(_mrz);
@@ -68,3 +64,5 @@ function parse(mrz, modified) {
     return result;
   }
 }
+
+module.exports = parse;
