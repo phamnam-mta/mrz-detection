@@ -1,6 +1,5 @@
 /data
 /debug
-/models
 !/models/ESC-v2.svm.descriptors
 !/models/ESC-v2.svm.model
 
